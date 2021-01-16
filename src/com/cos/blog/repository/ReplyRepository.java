@@ -25,8 +25,8 @@ public class ReplyRepository {
 	private ResultSet rs = null;
 	
 	public int save(Reply reply) {
-		final String SQL = "INSERT INTO reply(id, boardId, userId, content, createDate) VALUES(reply_seq.nextval, ?, ?, ?, sysdate)";
-		
+		//final String SQL = "INSERT INTO reply(id, boardId, userId, content, createDate) VALUES(reply_seq.nextval, ?, ?, ?, sysdate)";
+		final String SQL = "INSERT INTO reply(boardId, userId, content, createDate) VALUES(?, ?, ?, now())";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);

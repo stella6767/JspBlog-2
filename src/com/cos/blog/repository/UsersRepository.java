@@ -93,7 +93,8 @@ public class UsersRepository {
 	}
 	
 	public int save(Users user) {
-		final String SQL = "INSERT INTO users(id, username, password, email, address, userRole, createDate) VALUES(USERS_SEQ.nextval, ?,?,?,?,?,sysdate)";
+		//final String SQL = "INSERT INTO users(id, username, password, email, address, userRole, createDate) VALUES(USERS_SEQ.nextval, ?,?,?,?,?,sysdate)";
+		final String SQL = "INSERT INTO users(username, password, email, address, userRole, createDate) VALUES(?,?,?,?,?,now())";
 		
 		try {
 			conn = DBConn.getConnection();

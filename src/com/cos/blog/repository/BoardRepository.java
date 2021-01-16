@@ -91,8 +91,8 @@ public class BoardRepository {
 	}
 	
 	public int save(Board board) {
-		final String SQL = "INSERT INTO board(id, userId, title, content, readCount, createDate) VALUES(board_seq.nextval, ?, ?, ?, ?, sysdate)";
-		
+		//final String SQL = "INSERT INTO board(id, userId, title, content, readCount, createDate) VALUES(board_seq.nextval, ?, ?, ?, ?, sysdate)";
+		final String SQL = "INSERT INTO board(userId,title,content,readCount, createDate) VALUES (?,?,?,?,now())";
 		try {
 			conn = DBConn.getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -153,14 +153,15 @@ public class BoardRepository {
 	}
 	
 	public List<Board> findAll(int page, String keyword) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007969)*/id,");
-		sb.append("userId, title, content, readCount, createDate ");
-		sb.append("FROM board ");
-		sb.append("WHERE title like ? OR content like ? ");
-		sb.append("OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY");
-		//System.out.println(sb.toString());
-		final String SQL = sb.toString();
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007969)*/id,");
+//		sb.append("userId, title, content, readCount, createDate ");
+//		sb.append("FROM board ");
+//		sb.append("WHERE title like ? OR content like ? ");
+//		sb.append("OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY");
+//		//System.out.println(sb.toString());
+//		final String SQL = sb.toString();
+		final String SQL = "SELECT * FROM board WHERE title like ? OR content like ? ORDER BY Id DESC LIMIT ?,3";
 		List<Board> boards = new ArrayList<>();
 		
 		try {
@@ -196,13 +197,14 @@ public class BoardRepository {
 	
 	
 	public List<Board> findAll(int page) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007969)*/id,");
-		sb.append("userId, title, content, readCount, createDate ");
-		sb.append("FROM board ");
-		sb.append("OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY");
-		
-		final String SQL = sb.toString();
+//		StringBuilder sb = new StringBuilder();
+//		sb.append("SELECT /*+ INDEX_DESC(BOARD SYS_C007969)*/id,");
+//		sb.append("userId, title, content, readCount, createDate ");
+//		sb.append("FROM board ");
+//		sb.append("OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY");
+//		
+//		final String SQL = sb.toString();
+		final String SQL = "SELECT * FROM board ORDER BY Id DESC LIMIT ?,4"; 
 		List<Board> boards = new ArrayList<>();
 		
 		try {
